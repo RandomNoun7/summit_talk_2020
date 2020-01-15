@@ -1,7 +1,7 @@
 version: '3'
 services:
   artifactory:
-    image: docker.bintray.io/jfrog/artifactory-oss:latest
+    image: docker.bintray.io/jfrog/artifactory-pro:latest
     volumes:
       - artifactory5_data:/var/opt/jfrog/artifactory
     ports:
