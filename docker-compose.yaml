@@ -21,5 +21,10 @@ services:
       - VIRTUAL_HOST=artifactory.test
       - VIRTUAL_PORT=8081
 
+  nodes:
+    build:
+      context: ./nodes
+      dockerfile: Dockerfile
+
 volumes:
   artifactory5_data:
