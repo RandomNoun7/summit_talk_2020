@@ -12,6 +12,9 @@ services:
       - ./assets/certs:/etc/nginx/certs
     depends_on:
       - artifactory
+    networks:
+      - default
+      - my-network
 
   artifactory:
     image: docker.bintray.io/jfrog/artifactory-pro:latest
@@ -20,11 +23,20 @@ services:
     environment:
       - VIRTUAL_HOST=artifactory.test
       - VIRTUAL_PORT=8081
+    depends_on:
+      - node
 
-  nodes:
+  node:
     build:
       context: ./nodes
       dockerfile: Dockerfile
+    networks:
+      - default
+      - my-network
 
 volumes:
   artifactory5_data:
+
+networks:
+  my-network:
+    internal: true
