@@ -13,10 +13,11 @@ services:
     depends_on:
       - artifactory
     networks:
-      - default
-      - my-network
+      demo:
+        ipv4_address: 10.5.0.100
 
   artifactory:
+    container_name: artifactory
     image: docker.bintray.io/jfrog/artifactory-pro:latest
     volumes:
       - artifactory5_data:/var/opt/jfrog/artifactory
@@ -30,13 +31,16 @@ services:
     build:
       context: ./nodes
       dockerfile: Dockerfile
+    extra_hosts:
+      - "artifactory.test:10.5.0.100"
     networks:
-      - default
-      - my-network
+      demo:
 
 volumes:
   artifactory5_data:
 
 networks:
-  my-network:
-    internal: true
+  demo:
+    ipam:
+     config:
+       - subnet: 10.5.0.0/16
